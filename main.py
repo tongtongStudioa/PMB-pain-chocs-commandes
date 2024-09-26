@@ -51,7 +51,7 @@ data_classes = {
 }
 
 # Date précise pour laquelle vous voulez connaître le nombre d'élèves
-date_semaine = {'liste_dates':["09-04-2024","10-04-2024","11-04-2024","12-04-2024","13-04-2024"],
+date_semaine = {'liste_dates':["30-09-2024","01-10-2024","02-10-2024","03-10-2024","04-10-2024"],
                 'liste_horaires':{
                     "heures":[9,11,13,14,16],
                     "minutes":[30,15,00,45,30]}
