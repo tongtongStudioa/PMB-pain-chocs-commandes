@@ -44,6 +44,4 @@ def lire_fichier_ical(url_edt,heure, minutes):
 
 
 
-
-
    

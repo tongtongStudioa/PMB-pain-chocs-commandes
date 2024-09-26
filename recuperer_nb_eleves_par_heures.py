@@ -5,8 +5,8 @@ Created on Sat Oct 21 13:42:23 2023
 @author: axel
 """
 
-# Fonction pour obtenir le nombre d'élèves pour une date et une heure précise
-def obtenir_nombre_eleves_pour_heure_precise_par_classe(date : str, heure, minutes, liste_groupes):
+
+def nb_eleve_par_heure(date : str, heure, minutes,evenements_du_jour, liste_groupes):
     """ Permet d'obtenir le nombre d'élèves présent à une date et à une heure précise.
         La fonction retourne un nombre d'élèves présent à l'heure indiqué (int)
         et un nombre d'élèves qui n'ont pas cours après l'heure indiqué (int) """
@@ -16,17 +16,17 @@ def obtenir_nombre_eleves_pour_heure_precise_par_classe(date : str, heure, minut
     minutes_debut_prochain_evenement = 0
     
     for groupe in liste_groupes :
-        for i in range(len(groupe['evenements'])):  #for i in range(5):
+        for i in range(len(evenements_du_jour)):  #for i in range(5):
             # Debugage 
             #print(groupe['evenements'][i].name)
             
             # Extraire la date et l'heure de début et de fin de l'événement
-            date_debut = groupe['evenements'][i].begin 
-            date_fin = groupe['evenements'][i].end 
+            date_debut = evenements_du_jour[i].begin 
+            date_fin = evenements_du_jour[i].end 
             
-            # Extraire l'heure de début et de fin d'évenement en rajoutant 1h car problème mauvaise heure de l'évenement
-            heure_debut = date_debut.hour + 1 # + 2
-            heure_fin = date_fin.hour + 1 # + 2
+            # Extraire l'heure de début et de fin d'évenement en rajoutant 2h car problème mauvaise heure de l'évenement
+            heure_debut = date_debut.hour + 2 # + 2
+            heure_fin = date_fin.hour + 2 # + 2
             minutes_debut = date_debut.minute
             minutes_fin = date_fin.minute
             
