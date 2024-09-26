@@ -12,41 +12,37 @@ from recuperer_informations_planning import lire_fichier_ical
 data_classes = {
     'classes':[
         {'name':"FISE_BAT3_1",
-         'url_edt':'https://ade-usmb-ro.grenet.fr/jsp/custom/modules/plannings/direct_cal.jsp?data=b5cfb898a9c27be94975c12c6eb30e9233bdfae22c1b52e2cd88eb944acf5364c69e3e5921f4a6ebe36e93ea9658a08f,1&resources=9789&projectId=1&calType=ical&lastDate=2042-08-14',
+         'url_edt':'https://ade-usmb-ro.grenet.fr/jsp/custom/modules/plannings/direct_cal.jsp?data=b5cfb898a9c27be94975c12c6eb30e9233bdfae22c1b52e2cd88eb944acf5364c69e3e5921f4a6ebe36e93ea9658a08f,1&resources=4795&projectId=2&calType=ical&lastDate=2042-08-14',
          'effectif':25
          },
          {'name':"FISE_BAT3_2",
-          'url_edt':'https://ade-usmb-ro.grenet.fr/jsp/custom/modules/plannings/direct_cal.jsp?data=b5cfb898a9c27be94975c12c6eb30e9233bdfae22c1b52e2cd88eb944acf5364c69e3e5921f4a6ebe36e93ea9658a08f,1&resources=9794&projectId=1&calType=ical&lastDate=2042-08-14',
+          'url_edt':'https://ade-usmb-ro.grenet.fr/jsp/custom/modules/plannings/direct_cal.jsp?data=b5cfb898a9c27be94975c12c6eb30e9233bdfae22c1b52e2cd88eb944acf5364c69e3e5921f4a6ebe36e93ea9658a08f,1&resources=5726&projectId=2&calType=ical&lastDate=2042-08-14',
           'effectif':25
           },
          {'name':"FISA_BAT3",
-          'url_edt':'https://ade-usmb-ro.grenet.fr/jsp/custom/modules/plannings/direct_cal.jsp?data=b5cfb898a9c27be94975c12c6eb30e9233bdfae22c1b52e2cd88eb944acf5364c69e3e5921f4a6ebe36e93ea9658a08f,1&resources=9822&projectId=1&calType=ical&lastDate=2042-08-14',
-          'effectif':27
+          'url_edt':'https://ade-usmb-ro.grenet.fr/jsp/custom/modules/plannings/direct_cal.jsp?data=b5cfb898a9c27be94975c12c6eb30e9233bdfae22c1b52e2cd88eb944acf5364c69e3e5921f4a6ebe36e93ea9658a08f,1&resources=5728&projectId=2&calType=ical&lastDate=2042-08-14',
+          'effectif':35
           },
-         {'name':"EIT_A",
-          'url_edt':'https://ade-usmb-ro.grenet.fr/jsp/custom/modules/plannings/direct_cal.jsp?data=b5cfb898a9c27be94975c12c6eb30e9233bdfae22c1b52e2cd88eb944acf5364c69e3e5921f4a6ebe36e93ea9658a08f,1&resources=5738&projectId=1&calType=ical&lastDate=2042-08-14',
-          'effectif':20
+         {'name':"EIT3",
+          'url_edt':'https://ade-usmb-ro.grenet.fr/jsp/custom/modules/plannings/direct_cal.jsp?data=b5cfb898a9c27be94975c12c6eb30e9233bdfae22c1b52e2cd88eb944acf5364c69e3e5921f4a6ebe36e93ea9658a08f,1&resources=5727&projectId=2&calType=ical&lastDate=2042-08-14',
+          'effectif':35
           },
-         {'name':"EIT_B",
-          'url_edt':'https://ade-usmb-ro.grenet.fr/jsp/custom/modules/plannings/direct_cal.jsp?data=b5cfb898a9c27be94975c12c6eb30e9233bdfae22c1b52e2cd88eb944acf5364c69e3e5921f4a6ebe36e93ea9658a08f,1&resources=85&projectId=1&calType=ical&lastDate=2042-08-14',
-          'effectif':20,
-          },
-         {'name':"FISA_BAT4_1",
-          'url_edt':'https://ade-usmb-ro.grenet.fr/jsp/custom/modules/plannings/direct_cal.jsp?data=b5cfb898a9c27be94975c12c6eb30e9233bdfae22c1b52e2cd88eb944acf5364c69e3e5921f4a6ebe36e93ea9658a08f,1&resources=9784&projectId=1&calType=ical&lastDate=2042-08-14',
-          'effectif':15,
-          },
-         {'name':"FISA_BAT4_2",
-          'url_edt':'https://ade-usmb-ro.grenet.fr/jsp/custom/modules/plannings/direct_cal.jsp?data=b5cfb898a9c27be94975c12c6eb30e9233bdfae22c1b52e2cd88eb944acf5364c69e3e5921f4a6ebe36e93ea9658a08f,1&resources=9795&projectId=1&calType=ical&lastDate=2042-08-14',
-          'effectif':15,
+         {'name':"FISA_BAT4",
+          'url_edt':'https://ade-usmb-ro.grenet.fr/jsp/custom/modules/plannings/direct_cal.jsp?data=b5cfb898a9c27be94975c12c6eb30e9233bdfae22c1b52e2cd88eb944acf5364c69e3e5921f4a6ebe36e93ea9658a08f,1&resources=2640&projectId=2&calType=ical&lastDate=2042-08-14',
+          'effectif':32,
           },
          {'name':"FISE_BAT4_1",
-          'url_edt':'https://ade-usmb-ro.grenet.fr/jsp/custom/modules/plannings/direct_cal.jsp?data=b5cfb898a9c27be94975c12c6eb30e9233bdfae22c1b52e2cd88eb944acf5364c69e3e5921f4a6ebe36e93ea9658a08f,1&resources=9551&projectId=1&calType=ical&lastDate=2042-08-14',
-          'effectif':25,
+          'url_edt':'https://ade-usmb-ro.grenet.fr/jsp/custom/modules/plannings/direct_cal.jsp?data=b5cfb898a9c27be94975c12c6eb30e9233bdfae22c1b52e2cd88eb944acf5364c69e3e5921f4a6ebe36e93ea9658a08f,1&resources=2308&projectId=2&calType=ical&lastDate=2042-08-14',
+          'effectif':20,
           },
          {'name':"FISE_BAT4_2",
-          'url_edt':'https://ade-usmb-ro.grenet.fr/jsp/custom/modules/plannings/direct_cal.jsp?data=b5cfb898a9c27be94975c12c6eb30e9233bdfae22c1b52e2cd88eb944acf5364c69e3e5921f4a6ebe36e93ea9658a08f,1&resources=9552&projectId=1&calType=ical&lastDate=2042-08-14',
+          'url_edt':'https://ade-usmb-ro.grenet.fr/jsp/custom/modules/plannings/direct_cal.jsp?data=b5cfb898a9c27be94975c12c6eb30e9233bdfae22c1b52e2cd88eb944acf5364c69e3e5921f4a6ebe36e93ea9658a08f,1&resources=2314&projectId=2&calType=ical&lastDate=2042-08-14',
           'effectif':23,
-          }
+          },
+         {'name':"EIT4",
+          'url_edt':'https://ade-usmb-ro.grenet.fr/jsp/custom/modules/plannings/direct_cal.jsp?data=b5cfb898a9c27be94975c12c6eb30e9233bdfae22c1b52e2cd88eb944acf5364c69e3e5921f4a6ebe36e93ea9658a08f,1&resources=2761&projectId=2&calType=ical&lastDate=2042-08-14',
+          'effectif':30
+          },
     ]
 }
 

@@ -25,8 +25,8 @@ def obtenir_nombre_eleves_pour_heure_precise_par_classe(date : str, heure, minut
             date_fin = groupe['evenements'][i].end 
             
             # Extraire l'heure de début et de fin d'évenement en rajoutant 1h car problème mauvaise heure de l'évenement
-            heure_debut = date_debut.hour + 1 # + 2
-            heure_fin = date_fin.hour + 1 # + 2
+            heure_debut = date_debut.hour + 2 # + 2
+            heure_fin = date_fin.hour + 2 # + 2
             minutes_debut = date_debut.minute
             minutes_fin = date_fin.minute
             
