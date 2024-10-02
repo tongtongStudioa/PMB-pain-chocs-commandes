@@ -4,7 +4,7 @@ save_data_on_exit = True
 save_history = True
 save_non_project_files = False
 project_type = 'empty-project-type'
-recent_files = ['main.py', 'recuperer_informations_planning.py', 'recuperer_nb_eleves_par_heures.py', 'affiche_infos_utiles.py']
+recent_files = ['recuperer_informations_planning.py', 'recuperer_nb_eleves_par_heures.py', 'affiche_infos_utiles.py', 'main.py']
 
 [main]
 version = 0.2.0

@@ -2,12 +2,13 @@
 """
 Created on Sat Oct 21 14:10:52 2023
 
-@author: axel
+@author: axel vaissade
 """
 from fpdf import FPDF
 from recuperer_informations_planning import telecharger_calendrier
 from recuperer_informations_planning import recuperer_evenements
 from recuperer_nb_eleves_par_heures import nb_eleve_par_heure
+import os
 
 
 def grouper_evenements_par_jour(liste_evenements):
@@ -15,7 +16,7 @@ def grouper_evenements_par_jour(liste_evenements):
     evenements_par_jour = {}
     
     for evenement in liste_evenements:
-        date = evenement.begin.strftime('%d-%m-%Y') # Converti la date dans un format lisible
+        date = evenement['date_debut'].strftime('%d-%m-%Y') # Converti la date dans un format lisible
         if date not in evenements_par_jour:
             evenements_par_jour[date] = []
         evenements_par_jour[date].append(evenement)
@@ -29,24 +30,23 @@ def recolter_trier_evenements(url_edt):
     tous_les_evenements = recuperer_evenements(ical_calendrier)
     
     # Trie les evenements par date croissant
-    tous_les_evenements.sort(key=lambda event: event.begin)
+    tous_les_evenements.sort(key=lambda event: event['date_debut'])
     
     return grouper_evenements_par_jour(tous_les_evenements)
          
 
 
-def generer_rapport(horaires, liste_classes):
+def generer_rapport(horaires, liste_classes,nom_rapport):
     """ 
-    Affiche les infos d'une semaine 
+    Affiche les infos pour les disponibilités des étuidants sur
+    différentes pauses spécifié pour tous les jours dans les calendriers.
         
-    @param liste_dates liste de dates de la semaine
     @param horaires dictionnaire avec heures et minutes à laquelles on veut les présences
-    @liste_classes dictionnaire pour savoir le nombre d'étudiants et avoir leurs edt 
+    @param liste_classes dictionnaire pour savoir le nombre d'étudiants et avoir leurs edt 
     """
         
-    # Affichage de la semaine
-    infos = "Rapport de présences pour la vente \n\n"
-    infos += "Calcules des présences pour les promos suivantes : \n"
+    # Préparer l'affichage des informations
+    infos = "Calcules des présences pour les promos suivantes : \n"
     
     nb_total_etu = 0
     maxlen = 0
@@ -64,17 +64,22 @@ def generer_rapport(horaires, liste_classes):
     infos += f"Nombre d'étudiants total dans les classes : {nb_total_etu}"
     infos += "\n"
     print(infos) # Imprimer les informations d'introduction
-    infos = ""
     
+    report_data = {}
     for date in max_nb_dates :
-        infos += presence_etudiants_date(date,horaires, liste_classes)
+        data_pause = presence_etu_pauses(date, horaires, liste_classes)
+        report_data[f'{date}'] = data_pause
+        
+        #infos += presence_etudiants_date(date,horaires, liste_classes)
     
+    # Génération du rapport PDF 
+    generate_pdf_report(report_data, nom_rapport)
     
-    # Affichage des informations finales
-    print(infos)
-    #return infos
 
-def presence_etudiants_date(date,horaires, liste_classes):
+def presence_etu_pauses(date,horaires, liste_classes):
+    
+    listes_presence_pauses = []
+    
     # Heures critiques pour notifier des départs
     heures_critiques = [13, 16]
     
@@ -87,38 +92,56 @@ def presence_etudiants_date(date,horaires, liste_classes):
         
         infos_presences = nb_eleve_par_heure(date, heure, minute, liste_classes)
         nombre_eleves = infos_presences['nombre_eleves_present']
-
+        
+        data_pause = {'horaire': f"{heure}h{minute:02d}",
+                'nb_etu': infos_presences['nombre_eleves_present'],
+                'nb_etu_grd_pause': infos_presences['grande_pause']}
+    
+        
+        listes_presence_pauses.append(data_pause)
+        
         infos += f"Pour {heure}h{minute:02d}, il y aura approximativement {nombre_eleves} élèves présents.\n"
         
         # Alerte pour les heures où les étudiants peuvent quitter
         if heure in heures_critiques:
-            infos += " N.B : Attention ce sont des heures où les étudiants quittent généralement l'établissement.\n"
+            data_pause['note'] = "N.B : Attention ce sont des heures où les étudiants quittent généralement l'établissement."
     infos += "\n"
-    
-    return infos
+    print(infos)
+    return listes_presence_pauses
 
-def generate_pdf_report(day_student_counts, pdf_file_path):
+def generate_pdf_report(report_data,nom):
+    
+    # Récupérer le chemin du dossier de téléchargement
+    downloads_path = os.path.join(os.path.expanduser("~"), "Downloads")
+    
+    # Créer le chemin entier vers le fichier avec le nom du dossier
+    pdf_file_path = os.path.join(downloads_path, f"{nom}.pdf")
+   
     pdf = FPDF()
     pdf.set_auto_page_break(auto=True, margin=15)
     pdf.add_page()
-    pdf.set_font("Arial", size=12)
-
-    pdf.cell(200, 10, txt="Student Presence Report", ln=True, align='C')
+    
+    pdf.set_font("Arial", 'B', 16)
+    pdf.cell(200, 10, txt="Student Presence Report Polytech Chambéry", ln=True, align='C')
     pdf.ln(10)
-
-    # Loop over each day and display the results
-    for date, times in day_student_counts.items():
-        pdf.cell(200, 10, txt=f"Présence pour la date {date.strftime('%d-%m-%Y')} :", ln=True)
-        for time_info in times:
-            time = time_info["time"]
-            student_count = time_info["count"]
-            pdf.cell(200, 10, txt=f"Pour {time['hour']}h{time['minute']:02d}, il y aura approximativement {student_count} élèves présents.", ln=True)
-            if time['hour'] == 13 or time['hour'] == 16:
-                pdf.cell(200, 10, txt=" N.B : Attention ce sont des heures où les étudiants quittent généralement l'établissement.", ln=True)
+    
+    # Boucler pour formater les données dans le PDF
+    for jour, liste_pauses in report_data.items():
+        pdf.set_font("Arial", 'B', 14)
+        pdf.cell(200, 10, txt=f"Présence pour la date {jour}:", ln=True)
+        pdf.ln(5)
+        
+        pdf.set_font("Arial", size=12)
+        for pause in liste_pauses:
+            pdf.cell(200, 10, txt=f"Pour {pause['horaire']}, il y aura approximativement {pause['nb_etu']} élèves présents.", ln=True)
+            if 'note' in pause:
+                pdf.cell(200, 10, txt=pause['note'], ln=True)
+        
+        # Add a line break between days
         pdf.ln(10)
 
     
     pdf.output(pdf_file_path)
-    print(f"PDF report generated: {pdf_file_path}")
+    print(f"PDF report generated, saved at : {pdf_file_path}")
 
 

@@ -31,37 +31,34 @@ def telecharger_calendrier(url):
         return None
     
 def recuperer_evenements(cal):
-    events = []
-    evenements = list(cal.events)
-    return evenements
-    """for component in cal.walk('vevent'):
-        event = {
-            'summary': str(component.get('summary')),
-            'start': component.get('dtstart').dt,
-            'end': component.get('dtend').dt
-        }
-        events.append(event)
-    return events"""
     evenements = []
-    for event in calendar_evenements:
-        evenement = {
-            'summary': event.name,
-            'start': event.begin,
-            'end': event.end
-        }
-        evenements.append(evenement)
-    #evenements.sort(key=lambda event: event.begin)
-    evenements.sort(key=lambda event: event["start"])
-    for i in range(5):
-        print(f"Résumé : {evenements[i]['summary']}")
-        print(f"Début : {evenements[i]['start']}")
-        print(f"Fin : {evenements[i]['end']}")
-        print(f"abs({heure * 60 + minutes} - ({(evenements[i]['start'].hour + 1) * 60} + {evenements[i]['start'].minute} + 2 * 60)) = {abs(heure *60 + minutes - ((evenements[i]['start'].hour +1)* 60 + evenements[i]['start'].minute + 2 * 60))}")
-        print(f"{(evenements[i]['end'].hour *60 + evenements[i]['end'].minute + 2*60) - (heure *60 + minutes)}")
-        print(abs(heure * 60 + minutes- ((evenements[i]['start'].hour+1)*60+ evenements[i]['start'].minute + 2*60)) <= 2 *60 and ((evenements[i]['end'].hour+1) *60 + evenements[i]['end'].minute + 2*60) <= heure *60 + minutes)
-        if (abs(heure * 60 + minutes - ((evenements[i]['start'].hour+1)*60+ evenements[i]['start'].minute + 2*60)) <= 2 * 60 and ((evenements[i]['end'].hour +1)*60 + evenements[i]['end'].minute + 2*60) <= heure *60 + minutes):
-            print("ajouter effectif")
-        print()
+    #evenements = list(cal.events)
+    #return evenements
+    for component in list(cal.events):
+        # Extraire les dates et horaires de début et de fin d'évenement (cours) 
+        date_debut = component.begin
+        date_fin = component.end
+        
+        # Convertir en heure local (Europe/paris)
+        date_debut = convert_to_local_time(date_debut)
+        date_fin = convert_to_local_time(date_fin)
+        
+        # Ajouter l'evenement à la liste avec des clés spécifiques
+        evenements.append({
+            'titre': component.name,
+            'date_debut': date_debut,
+            'date_fin': date_fin,
+            'heure_debut': date_debut.hour,
+            'minutes_debut': date_debut.minute,
+            'heure_fin': date_fin.hour,
+            'minutes_fin': date_fin.minute
+            
+        })
+    return evenements
+
+
+
+
 
 
 

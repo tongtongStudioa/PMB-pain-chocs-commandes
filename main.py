@@ -2,11 +2,19 @@
 """
 Created on Sat Oct 21 14:19:25 2023
 
-@author: axel
+@author: axel vaissade
+@GitHub: tongtongStudioa
+
+**
+J'ai créé ce programme pour rendre compte d'une nombre d'étudiants disponible à une pause dans mon école susceptible d'achter
+des viennoiseries pour une association.
+**
+
 """
 from affiche_infos_utiles import generer_rapport
 
-# Fichier principal avec tous les infos
+# Fichier principal avec tous les infos, les effectifs sont estimès ici, ces informations peuvent être modifiés.
+# Les url des des emplois du temps peuvent être pris de l'intranet sur la vue emploi du temps pour chaque filière.
 
 listes_classes = [
         {'nom':"FISE_BAT3_1",
@@ -50,6 +58,6 @@ horaires_pauses = [{"heure": 9, "minutes": 30},
                    ]
 
 
-#
-generer_rapport(horaires_pauses,listes_classes)
+#Génère un rapport pdf et sur la console
+generer_rapport(horaires_pauses,listes_classes,"Presence 1 semestre PMB(1)")
 
