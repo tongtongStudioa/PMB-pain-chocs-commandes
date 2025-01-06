@@ -2,7 +2,7 @@
 """
 Created on Sat Oct 21 13:44:09 2023
 
-@author: La famille tong
+@author: axel vaissade
 """
 import requests
 from ics import Calendar
