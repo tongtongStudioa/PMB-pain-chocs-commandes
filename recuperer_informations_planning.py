@@ -27,7 +27,7 @@ def telecharger_calendrier(url):
         return cal
         
     except requests.exceptions.RequestException as e:
-        print(f"Error : {e}")
+        print(f"Error url : {e}")
         return None
     
 def recuperer_evenements(cal):

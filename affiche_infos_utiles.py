@@ -27,6 +27,8 @@ def recolter_trier_evenements(url_edt):
     """ Utilise d'autres fonctions pour récolter et trier les évenements par jour pour chaque classe/groupes"""
         
     ical_calendrier = telecharger_calendrier(url_edt)
+    if not ical_calendrier:
+        return "Error: no events in calendar (maybe edt url is not good)"
     tous_les_evenements = recuperer_evenements(ical_calendrier)
     
     # Trie les evenements par date croissant
@@ -44,7 +46,10 @@ def generer_rapport(horaires, liste_classes,nom_rapport):
     @param horaires dictionnaire avec heures et minutes à laquelles on veut les présences
     @param liste_classes dictionnaire pour savoir le nombre d'étudiants et avoir leurs edt 
     """
-        
+    if not liste_classes:
+        return "❌ Aucune classe ajoutée."
+    if not nom_rapport:
+        return "❌ Veuillez entrer un nom de rapport."
     # Préparer l'affichage des informations
     infos = "Calcules des présences pour les promos suivantes : \n"
     
@@ -57,6 +62,8 @@ def generer_rapport(horaires, liste_classes,nom_rapport):
         
         # Collecter et trier les événements par classe
         classe['evenements'] = recolter_trier_evenements(classe['url_edt'])
+        if type(classe['evenements']) is str:
+            return classe['evenements']
         if len(classe['evenements']) > maxlen:
             max_nb_dates = classe['evenements']
         infos += f"{classe['nom']} : {classe['effectif']} étudiants\n"
@@ -74,6 +81,7 @@ def generer_rapport(horaires, liste_classes,nom_rapport):
     
     # Génération du rapport PDF 
     generate_pdf_report(report_data, nom_rapport)
+    return infos
     
 
 def presence_etu_pauses(date,horaires, liste_classes):
@@ -142,6 +150,8 @@ def generate_pdf_report(report_data,nom):
 
     
     pdf.output(pdf_file_path)
-    print(f"PDF report generated, saved at : {pdf_file_path}")
+    msg = f"PDF report generated, saved at : {pdf_file_path}"
+    print(msg)
+    return msg
 
 
